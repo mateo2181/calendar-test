@@ -11,18 +11,17 @@ describe('AddReminder.vue', () => {
 
   let store
   let state
-  let mutations
   let actions
   beforeEach(() => {
-    state = { reminders: [] };
-    mutations = mutations;
+    state = { 
+      reminders: [] 
+    };
     actions = {
       add_reminder: jest.fn()
     };
   
     store = new Vuex.Store({
       state,
-      // mutations,
       actions
     })
   })
@@ -32,15 +31,26 @@ describe('AddReminder.vue', () => {
     // let reminders = [];
     const time = '12';
     const day = 1;
+    const month = 2;
+    const year = 2019;
     const city = 'London';
     const text = 'Pay Bills!!';
 
-    const wrapper = shallowMount(AddReminder, {
+    const options = {
+      methods: {
+        validateFields() {
+          return true;
+        }
+      },
       store
-    })
+    };
+
+    const wrapper = shallowMount(AddReminder, options);
 
     wrapper.find('.btn-show-form').trigger('click');
     wrapper.find('input[name="day"]').setValue(day);
+    wrapper.find('select[name="month"]').setValue(month);
+    wrapper.find('select[name="year"]').setValue(year);
     wrapper.find('input[name="time"]').setValue(time);
     wrapper.find('input[name="city"]').setValue(city);
     wrapper.find('input[name="text"]').setValue(text);

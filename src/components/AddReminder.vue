@@ -8,14 +8,22 @@
     <div v-if="showForm" class="bg-gray-300 p-2 shadow absolute right-0">
       <div class="w-full">
         <div class="w-full flex mb-2">
-          <input placeholder="Day" name="day" class="w-2/5 mr-2 px-1 rounded" max="31" min="1" type="number" v-model="form.day" />
-          <input placeholder="Time" name="time" class="w-2/5 px-2 rounded" type="text" v-model="form.time" />
+            <input placeholder="Day" name="day" :class="{'border border-red-500': errors.includes('day')}" class="w-12 mr-1 px-1 rounded" max="31" min="1" type="number" v-model="form.day" />
+            <select class="w-32 h-8 mr-1" name="month" :class="{'border border-red-500': errors.includes('month')}" v-model="form.month">
+                <option v-for="(m,i) in monthsName" :key="i" :value="i">{{ m }}</option>
+            </select>
+            <select class="w-20 h-8 mr-1" name="year" :class="{'border border-red-500': errors.includes('year')}" v-model="form.year">
+                <option v-for="y in years" :key="y" :value="y">{{ y }}</option>
+            </select>
+            <input placeholder="Time" name="time" :class="{'border border-red-500': errors.includes('time')}" class="w-16 px-2 rounded" type="text" v-model="form.time" />
         </div>
-        <input placeholder="City" name="city" class="mb-2 px-1 rounded" v-model="form.city" />
+        <input placeholder="City" :class="{'border border-red-500': errors.includes('city')}" name="city" class="mb-2 w-full rounded" v-model="form.city" />
         <!-- <input placeholder="Color" class="mb-2 px-1 rounded" v-model="form.color" /> -->
         <Color-picker class="mb-2" v-model="form.color" />
-        <input placeholder="Write here..." name="text" maxlength="30" class="mb-2 px-1 rounded" v-model="form.text" />
-        <button @click="addReminder" class="btn-create-reminder px-2 py-1 bg-green-500 text-white">Save</button>
+        <input placeholder="Write here..." :class="{'border border-red-500': errors.includes('text')}" name="text" maxlength="30" class="mb-2 w-full rounded" v-model="form.text" />
+        <div class="flex justify-end">
+            <button @click="addReminder" class="btn-create-reminder px-2 py-1 bg-green-500 text-white">Save</button>
+        </div>
       </div>
     </div>
   </div>
@@ -28,6 +36,8 @@ export default {
   data() {
     return {
       showForm: false,
+      errors: [],
+      fieldToValidate: ['day','time','city','year','month','text'],
       form: {
         day: 1,
         time: null,
@@ -42,22 +52,35 @@ export default {
   components: {
       ColorPicker
   },
+  mounted() {
+      this.form.year = this.currentYear;
+      this.form.month = this.currentMonth;
+  },
   computed: {
-      ...mapState(['currentMonth','currentYear'])
+      ...mapState(['monthsName', 'years','currentMonth','currentYear'])
   },
   methods: {
     ...mapActions(["add_reminder"]),
     addReminder() {
-        this.form.color = this.form.color ? this.form.color.hex : '';
-        this.form.time = this.form.time.includes(':') ? this.form.time : `${this.form.time}:00`;  
-        this.form.year = this.currentYear;
-        this.form.month = this.currentMonth; 
-        const reminder = Object.assign({},this.form);
-        this.add_reminder(reminder);
-        this.form.time = this.form.city = this.form.color = null;
-        this.form.day = 1;
-        this.form.text = "";
-        this.showForm = false;
+        if(this.validateFields()) {
+            this.form.color = this.form.color ? this.form.color.hex : '';
+            this.form.time = this.form.time.includes(':') ? this.form.time : `${this.form.time}:00`; 
+            const reminder = Object.assign({},this.form);
+            this.add_reminder(reminder);
+            this.form.time = this.form.city = this.form.color = null;
+            this.form.day = 1;
+            this.form.text = "";
+            this.showForm = false;
+        }
+    },
+    validateFields() {
+        this.errors.length = 0;
+        Object.keys(this.form).forEach(field => {
+            if(this.fieldToValidate.includes(field) && (this.form[field] == '' || !this.form[field])) {
+                this.errors.push(field);
+            }
+        });
+        return this.errors.length == 0;
     }
   }
 };

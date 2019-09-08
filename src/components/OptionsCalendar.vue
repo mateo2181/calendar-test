@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="w-auto flex mb-2">
+    <div class="w-auto flex">
       <div class="pr-2 w-auto">
         <select class="h-8 px-4" name @change="setMonth" :value="month">
           <option v-for="(m,i) in monthsName" :key="i" :value="i">{{ m }}</option>
