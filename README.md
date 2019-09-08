@@ -1,4 +1,6 @@
-# calendar-test
+# Calendar Test
+
+## Vue + Vuex + Vue Router + TailwindCss
 
 ## Project setup
 ```
@@ -15,15 +17,7 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### Run unit tests
 ```
-npm run test
+npm run test:unit
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

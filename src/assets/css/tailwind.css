@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input, select {
+    border: 1px solid #c7c7c7;
+    padding: 0.2rem 0.4rem;
+    background-color: white;
+}
+
+.btn {
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    padding: 3px 10px;
+}
