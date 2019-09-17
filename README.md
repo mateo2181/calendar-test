@@ -1,4 +1,4 @@
-# Calendar Test
+# Calendar and Reminders
 
 ## Vue + Vuex + Vue Router + TailwindCss
 
