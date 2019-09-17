@@ -5,3 +5,13 @@ export function orderReminders(reminders) {
         return dateA - dateB;
     });
 } 
+
+export function getYears(fromYear) {
+    let array = [];
+    let i = 0;
+    while(fromYear+i <= new Date().getFullYear()) {
+        array.push(fromYear+i);
+        i++;
+    }
+    return array;
+}

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <div class="h-10 fixed top-0 bg-blue-600 font-semibold text-white p-2 w-full text-center">
+      <div class="navbar h-10 fixed top-0 bg-blue-600 font-semibold text-white p-2 w-full text-center">
         <h5> APP CALENDAR </h5>
       </div>
       <div class="mt-16">
@@ -17,5 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+.navbar {
+  z-index: 100;
+}
 </style>
