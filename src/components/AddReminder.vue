@@ -54,7 +54,7 @@ export default {
   components: {
       ColorPicker
   },
-  mounted() {
+  created() {
       this.form.year = this.currentYear;
       this.form.month = this.currentMonth;
   },
@@ -71,8 +71,7 @@ export default {
         required
       },
       year: {
-        required,
-        between: between(1950, new Date().getFullYear())
+        required
       },
       month: {
         required
@@ -82,6 +81,12 @@ export default {
         minLength: minLength(4),
         maxLength: maxLength(30)
       }
+    }
+  },
+  watch: {
+    currentYear(newValue,old) {
+      console.log(newValue);
+      this.form.year = newValue; 
     }
   },
   computed: {

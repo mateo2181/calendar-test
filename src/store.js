@@ -4,7 +4,7 @@ import { getYears } from './utils/functions.js'
 import serviceWeather from './services/apiWeather';
 Vue.use(Vuex)
 
-let years = getYears(1950);
+let years = getYears(1950,2050);
 export default new Vuex.Store({
   state: {
     years: years,

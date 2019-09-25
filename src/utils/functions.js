@@ -6,10 +6,10 @@ export function orderReminders(reminders) {
     });
 } 
 
-export function getYears(fromYear) {
+export function getYears(fromYear, toYear) {
     let array = [];
     let i = 0;
-    while(fromYear+i <= new Date().getFullYear()) {
+    while(fromYear+i <= toYear) {
         array.push(fromYear+i);
         i++;
     }

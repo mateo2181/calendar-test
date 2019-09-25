@@ -71,8 +71,7 @@ export default {
         required
       },
       year: {
-        required,
-        between: between(1950, new Date().getFullYear())
+        required
       },
       month: {
         required

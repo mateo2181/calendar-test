@@ -1,12 +1,12 @@
 <template>
   <div :class="{'bg-gray-200': !day.isCurrentMonth}">
     <span class="pl-1 pt-2">{{ day.day }}</span>
-    <div v-if="day.reminders.length > 0" class="w-full p-1">
+    <div v-if="day.reminders.length > 0" class="h-20 overflow-y-scroll w-full p-1">
       <div
         @click="$emit('selectReminder',r)"
         class="mb-1 rounded px-1 border border-gray-800 cursor-pointer"
         :style="{backgroundColor: r.color}"
-        v-for="(r,k) in orderReminders(day.reminders).slice(0,2)"
+        v-for="(r,k) in orderReminders(day.reminders)"
         :key="k"
       >
         <div>
